@@ -45,7 +45,7 @@ def showHTML():
 def update_own_board():
     x = request.args.get('x')
     y = request.args.get('y')
-    print("x = %s, y = %s" % x , y)
+    print("x = " + x + ", y = " + y)
     
     # if out of bounds?
     if x >= 10 or y >= 10 or x < 0 or y < 0:
