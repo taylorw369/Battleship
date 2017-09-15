@@ -23,7 +23,7 @@ def read_board(file_name):
 # # Hacky hacky hacky!
 @app.route('/<path:path>')
 def showHTML(path):
-     return render_template(path, board=read_board()
+     return render_template(path, board=read_board())
 
 
 #fired upon
@@ -32,6 +32,8 @@ def showHTML(path):
 def update_own_board():
     x = int(request.args.get('x'))
     y = int(request.args.get('y'))
+    if y == None or x == None:
+        return make_response("message formatted incorrectly", 400)
 
     board = read_board(own_board)
 
@@ -89,4 +91,4 @@ def update_opponent_board():
     return make_response("Board updated", 200)
 
 if __name__ == "__main__":
-    app.run(host= '0.0.0.0')
+    app.run(port = port)
