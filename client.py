@@ -39,7 +39,7 @@ def fire():
             else:
                 info = "M"
                 print("you missed")
-        requests.post("http://" + ip + ":" + port + "/response?info=" + info + "&sink=" + sink + "&x=" + x + "&y=" + y)
+        requests.post("http://127.0.0.1:" + port + "/response?info=" + info + "&sink=" + sink + "&x=" + x + "&y=" + y)
 
 
 
