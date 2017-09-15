@@ -3,6 +3,7 @@ import sys
 from flask import Flask, render_template, Response, request, make_response, send_from_directory
 
 app = Flask(__name__)
+app.config.from_object(__name__)
 
 port = sys.argv[1]
 own_board = sys.argv[2]
@@ -20,14 +21,6 @@ def read_board(file_name):
             board.append(list(line.rstrip(' \n')))
     return board
 
-# # Hacky hacky hacky!
-@app.route('/<path:path>')
-def showHTML(path):
-     return render_template(path, board=read_board()
-
-
-#fired upon
-#/fire?x=5&y=4
 @app.route('/fire', methods = ['POST'])
 def update_own_board():
     x = int(request.args.get('x'))
@@ -88,5 +81,17 @@ def update_opponent_board():
     save_board(board, "opponent_board.txt")
     return make_response("Board updated", 200)
 
+
+# # Hacky hacky hacky!
+@app.route('/<path:path>')
+def showHTML(path):
+    if "own" in path:
+        return render_template(path, board=read_board(own_board))
+    elif "opponent" in path:
+        return render_template(path, board=read_board("opponent_board.html"))
+    else:
+        return make_response("Nothing is here", 404)
+
+
 if __name__ == "__main__":
-    app.run(host= '0.0.0.0')
+    app.run(host= '0.0.0.0' port=port)
