@@ -1,0 +1,33 @@
+html {
+    /* background-color: #808080; */
+    font-family: URW Palladio L;
+    font-size: 13pt;
+    background-color: #F5F5F5;
+}
+body {
+    margin-left: auto;
+    margin-right: auto;
+    padding: 25px;
+    max-width: 60em;
+    background-color: white;
+}
+table {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+p {
+    padding-left: 1.5em;
+    padding-right: 3em;
+    width: 90%;
+}
+ol {
+    padding-left: 4em;
+}
+
+h3, h4, dt {
+    padding-left: 1em;
+}
+
+
+tr:nth-child(even){background-color: #f2f2f2;
