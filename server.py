@@ -88,10 +88,10 @@ def showHTML(path):
     if "own" in path:
         return render_template(path, board=read_board(own_board))
     elif "opponent" in path:
-        return render_template(path, board=read_board("opponent_board.html"))
+        return render_template(path, board=read_board("opponent_board.txt"))
     else:
         return make_response("Nothing is here", 404)
 
 
 if __name__ == "__main__":
-    app.run(host= '0.0.0.0' port=port)
+    app.run(host= '0.0.0.0', port=int(port))
