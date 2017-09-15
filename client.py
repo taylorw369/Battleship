@@ -22,18 +22,32 @@ def fire():
     elif r.status_code == 200:
         print("good job, mate")
         codes = get_codes(r.text)
-        if int(codes[0]) == 1 and codes.length >1
-            print("You sunk ") #put in the ship that was sunk
-            if codes
+        # variables
+        hit = 0
+        info = ""
+        sink = 0
+        if "hit" in codes:
+            print("You hit!") #put in the ship that was sunk
+            hit = 1
+            if "sunk" in codes:
+                print("you sunk: %s" % (codes["sunk"]))
+                sink = 1
+                info = code["sunk"]
+            else:
+                info = "H"
+        else:
+            info = "M"
+
+
 
 def get_codes(message_text):
-    to_return = []
+    to_return = dict()
     vals = message_text.split("&")
     for item in vals:
-        to_return.append(item.split("=")[1])
+        sub = item.split("=")
+        to_return[sub[0]] = sub[1]
     return to_return
-    
+
 
 if __name__ == "__main__":
     fire()
-    

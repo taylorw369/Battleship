@@ -72,6 +72,12 @@ def update_opponent_board():
 
     board = read_board("opponent_board.txt")
 
+    if not board:
+        board = []
+        for i in range(0,10):
+            board[i] = "__________")
+
+
     # no error checking!
     if sink != 0:
         board[y][x] = sink
