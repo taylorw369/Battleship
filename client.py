@@ -8,10 +8,10 @@ y = sys.argv[4]
 
 def fire():
 
-    payload = {'x': x, 'y': y}
-    r = requests.post("http://" + ip + ":" + port, data=payload)
+
+    r = requests.post("http://" + ip + ":" + port + "/fire?x=" + x + "&y=" + y)
     print("text:  " + r.text)
-    print("/nstatus: " + r.status_code)
+    print("status: %d" % (r.status_code))
 
     if r.status_code == 404:
         print("coordinates are out of bounds")
@@ -20,23 +20,26 @@ def fire():
     elif r.status_code == 400:
         print("your message was formatted incorrectly")
     elif r.status_code == 200:
-        print("good job, mate")
+        print("good job, mate, you formatted it correctly")
         codes = get_codes(r.text)
         # variables
         hit = 0
         info = ""
-        sink = 0
+        sink = "0"
         if "hit" in codes:
-            print("You hit!") #put in the ship that was sunk
-            hit = 1
-            if "sunk" in codes:
-                print("you sunk: %s" % (codes["sunk"]))
-                sink = 1
-                info = code["sunk"]
+            if codes["hit"] == "1":
+                print("You hit!") #put in the ship that was sunk
+                hit = 1
+                if "sink" in codes:
+                    print("you sunk: %s" % (codes["sink"]))
+                    sink = codes["sink"] 
+                    info = "H"
+                else:
+                    info = "H"
             else:
-                info = "H"
-        else:
-            info = "M"
+                info = "M"
+                print("you missed")
+        requests.post("http://" + ip + ":" + port + "/response?info=" + info + "&sink=" + sink + "&x=" + x + "&y=" + y)
 
 
 

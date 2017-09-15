@@ -21,17 +21,9 @@ def read_board(file_name):
             board.append(list(line.rstrip(' \n')))
     return board
 
-<<<<<<< HEAD
-# # Hacky hacky hacky!
-@app.route('/<path:path>')
-def showHTML(path):
-     return render_template(path, board=read_board())
-
 
 #fired upon
 #/fire?x=5&y=4
-=======
->>>>>>> 90170a91d8721313d52a921ff1030d0504f49d14
 @app.route('/fire', methods = ['POST'])
 def update_own_board():
     x = int(request.args.get('x'))
@@ -56,10 +48,10 @@ def update_own_board():
     # they hit:
     else:
         old = board[y][x]
+        numb = count_occurences(old, board)
         board[y][x] = 'H'
         save_board(board, own_board)
-        numb = count_occurences(old, board)
-        if numb == 0:
+        if numb == 1:
             # we sunk
             return make_response("hit=1&sink=%s" % old, 200)
         else:
@@ -113,8 +105,5 @@ def showHTML(path):
 
 
 if __name__ == "__main__":
-<<<<<<< HEAD
-    app.run(port = port)
-=======
     app.run(host= '0.0.0.0', port=int(port))
->>>>>>> 90170a91d8721313d52a921ff1030d0504f49d14
+
