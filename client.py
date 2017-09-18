@@ -41,10 +41,10 @@ def fire(ip, port, x, y):
         # load the opponent's board:
         op_board = read_board(opponent_board)
         
-        if not board:
-            board = []
+        if not op_board:
+            op_board = []
             for i in range(0,10):
-                board[i] = "__________"
+                op_board[i] = "__________"
         
         
         if "hit" in codes:
@@ -58,8 +58,8 @@ def fire(ip, port, x, y):
             else:
                 board[y][x] = "M"
                 print("you missed")
-        # don't forget to save the board!
-        save_board(op_board, opponent_board)
+            # don't forget to save the board!
+            save_board(op_board, opponent_board)
         else:
             print("Return message not formatted correctly")
 
