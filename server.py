@@ -24,10 +24,15 @@ def read_board(file_name):
     except FileNotFoundError:
         return None
 
+
+#fired upon
+#/fire?x=5&y=4
 @app.route('/fire', methods = ['POST'])
 def update_own_board():
     x = int(request.args.get('x'))
     y = int(request.args.get('y'))
+    if y == None or x == None:
+        return make_response("message formatted incorrectly", 400)
 
     board = read_board(own_board)
 
@@ -104,3 +109,4 @@ def showHTML(path):
 
 if __name__ == "__main__":
     app.run(host= '0.0.0.0', port=int(port))
+
