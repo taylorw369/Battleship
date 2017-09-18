@@ -44,19 +44,21 @@ def fire(ip, port, x, y):
         if not op_board:
             op_board = []
             for i in range(0,10):
-                op_board[i] = "__________"
-        
+                op_board.append(list("__________"))
+
+        x = int(x)
+        y = int(y)
         
         if "hit" in codes:
             if codes["hit"] == "1":
                 print("You hit!") #put in the ship that was sunk
                 if "sink" in codes:
                     print("you sunk: %s" % (codes["sink"]))
-                    board[y][x] = codes["sink"]
+                    op_board[y][x] = codes["sink"]
                 else:
-                    board[y][x] = "H"
+                    op_board[y][x] = "H"
             else:
-                board[y][x] = "M"
+                op_board[y][x] = "M"
                 print("you missed")
             # don't forget to save the board!
             save_board(op_board, opponent_board)
