@@ -1,6 +1,7 @@
 import requests
 import sys
 
+
 opponent_board = "opponent_board.txt"
 
 def save_board(board, file_name):
