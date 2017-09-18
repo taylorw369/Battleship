@@ -102,7 +102,11 @@ def showHTML(path):
     if "own" in path:
         return render_template(path, board=read_board(own_board))
     elif "opponent" in path:
-        return render_template(path, board=read_board("opponent_board.txt"))
+        # check if file exists
+        if os.path.isfile("opponent_board.txt"):
+            return render_template(path, board=read_board("opponent_board.txt"))
+        else:
+            return "There is no record of an opponent's board right now."
     else:
         return make_response("Nothing is here", 404)
 
