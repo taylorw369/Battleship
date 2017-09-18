@@ -15,11 +15,14 @@ def save_board(board, file_name):
 
 def read_board(file_name):
     board = []
-    with open(file_name, "r") as f:
-        print(f)
-        for line in f:
-            board.append(list(line.rstrip(' \n')))
-    return board
+    try:
+        with open(file_name, "r") as f:
+            print(f)
+            for line in f:
+                board.append(list(line.rstrip(' \n')))
+            return board
+    except FileNotFoundError:
+        return None
 
 @app.route('/fire', methods = ['POST'])
 def update_own_board():
@@ -43,10 +46,10 @@ def update_own_board():
     # they hit:
     else:
         old = board[y][x]
+        numb = count_occurences(old, board)
         board[y][x] = 'H'
         save_board(board, own_board)
-        numb = count_occurences(old, board)
-        if numb == 0:
+        if numb == 1:
             # we sunk
             return make_response("hit=1&sink=%s" % old, 200)
         else:
@@ -67,19 +70,19 @@ def update_opponent_board():
     # is the ship that was sunk, or 0
     sink = request.args.get('sink')
 
-    x = request.args.get('x')
-    y = request.args.get('y')
+    x = int(request.args.get('x'))
+    y = int(request.args.get('y'))
 
     board = read_board("opponent_board.txt")
 
     if not board:
         board = []
         for i in range(0,10):
-            board[i] = "__________")
+            board[i] = "__________"
 
 
     # no error checking!
-    if sink != 0:
+    if sink != "0":
         board[y][x] = sink
     else:
         board[y][x] = info
